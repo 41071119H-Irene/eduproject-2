@@ -9,3 +9,11 @@
 
 ### 0418
 - 運用 HTML/CSS/Bootstrap coding出想要的介面
+- Profile
+- Learning Progress
+- Writing Profile Data
+
+### 0502
+- 用Flask做出相關功能
+- 增加主題
+- 增加筆記
