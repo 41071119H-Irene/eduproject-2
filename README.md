@@ -10,7 +10,9 @@
 ### 0418
 - 運用 HTML/CSS/Bootstrap coding出想要的介面
 - Writing Profile Data Form
+![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/7c43b5d8-4f00-4f4a-814e-f8cbaf269393)
 - Profile
+
 - Learning Progress (中間使用Markdown 語言編輯)
 ![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/59f4d569-af60-4b76-989a-952c966db58b)
 
