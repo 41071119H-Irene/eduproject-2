@@ -17,7 +17,10 @@
 ![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/59f4d569-af60-4b76-989a-952c966db58b)
 
 
-### 0502
+### 0502 
+- 用 Flask 串聯做成Genrator
+
+### 0509
 - 用Flask做出相關功能
 - 增加主題
 - 增加筆記
