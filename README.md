@@ -9,11 +9,11 @@
 
 ### 0418
 - 運用 HTML/CSS/Bootstrap coding出想要的介面
+- Writing Profile Data Form
 - Profile
 - Learning Progress (中間使用Markdown 語言編輯)
 ![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/59f4d569-af60-4b76-989a-952c966db58b)
 
-- Writing Profile Data
 
 ### 0502
 - 用Flask做出相關功能
