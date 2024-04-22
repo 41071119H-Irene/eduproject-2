@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import json
 import os
 
@@ -14,7 +14,7 @@ def load_content():
             return json.load(f)
     else:
         # 如果文件不存在或內容為空，返回默認值
-        return {}
+        return "Enter your content here."
 
 def save_content(content):
     with open(CONTENT_FILE, 'w') as f:
@@ -23,17 +23,12 @@ def save_content(content):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        content = request.json
+        content = request.form['content']
         save_content(content)
-        return jsonify({'message': 'success'})
+        return redirect(url_for('index'))
     else:
         content = load_content()
         return render_template('index.html', content=content)
-
-@app.route('/profile')
-def profile():
-    content = load_content()
-    return render_template('profile.html', content=content)
 
 if __name__ == '__main__':
     app.run(debug=True)
