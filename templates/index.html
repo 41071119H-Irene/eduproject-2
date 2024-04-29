@@ -170,7 +170,7 @@
                 </div>
                 <!-- 新增Generate!按鈕 -->
                 <div class="col-md-12 upload-section">
-                    <button type="button" class="btn btn-primary btn-block">Generate!</button>
+                    <button type="button" class="btn btn-primary btn-block" id="generateBtn">Generate!</button>
                 </div>
             </div>
         </div>
@@ -196,6 +196,40 @@
             $('#removeBtn').hide();
             $('#imagePreview').attr('src', '').hide();
         });
+    });
+
+    $(document).ready(function() {
+        $('#customFile').change(function() {
+            var input = this;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#uploadBtn').hide();
+                $('#removeBtn').show();
+                $('#imagePreview').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        });
+        $('#removeBtn').click(function() {
+            $('#customFile').val('');
+            $('#uploadBtn').show();
+            $('#removeBtn').hide();
+            $('#imagePreview').attr('src', '').hide();
+        });
+
+        // 監聽Generate!按鈕的點擊事件
+        $('#generateBtn').click(function() {
+            // 使用 AJAX 或其他方法將表單資料提交給後端
+            // 這裡可以使用 $.ajax() 或 $.post() 方法
+            // 請替換以下代碼為你的後端接收表單資料的路徑
+            $.post('/profile', $('form').serialize(), function(response) {
+                // 在成功提交後，你可以將用戶重定向到另一個頁面或者執行其他操作
+                // 這裡的 response 變數包含了從後端返回的任何數據
+                // 你可以根據返回的數據執行相應的操作
+                // 例如，如果後端返回了生成的個人資料頁面的URL，你可以重定向用戶到該頁面
+                window.location.href = response.profileUrl;
+            });
+        });
+
     });
 </script>
 </body>
