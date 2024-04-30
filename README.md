@@ -16,6 +16,9 @@
 - Learning Progress (中間使用Markdown 語言編輯)
 ![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/59f4d569-af60-4b76-989a-952c966db58b)
 
+### 0425
+- 去南港看展ㄌ!
+- 看摔倒偵測然後連動家居照護技術
 
 ### 0502 
 - 用 Flask 串聯做成Genrator
