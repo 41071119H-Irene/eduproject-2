@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+# app.py
+from flask import Flask, render_template, request, jsonify, send_from_directory
+import json
+import os
 
 app = Flask(__name__)
 
@@ -8,23 +11,53 @@ def index():
 
 @app.route('/profile', methods=['POST'])
 def generate_profile():
-    if request.method == 'POST':
-        # 獲取表單數據
-        name = request.form.get('name')
-        email = request.form.get('email')
-        feature1 = request.form.get('feature1')
-        feature2 = request.form.get('feature2')
-        feature3 = request.form.get('feature3')
-        facebook = request.form.get('facebook')
-        instagram = request.form.get('instagram')
-        website = request.form.get('personal_website')
-        introduction = request.form.get('introduction')
+    # 從 POST 請求中獲取表單資料
+    name = request.form.get('name')
+    email = request.form.get('email')
+    feature1 = request.form.get('feature1')
+    feature2 = request.form.get('feature2')
+    feature3 = request.form.get('feature3')
+    facebook = request.form.get('facebook')
+    instagram = request.form.get('instagram')
+    personal_website = request.form.get('personal_website')
+    introduction = request.form.get('introduction')
 
-        # 在這裡使用獲取到的數據生成個人檔案
-        # 可以根據你的需求將這些數據儲存到數據庫中，或者生成靜態的 HTML 頁面
+    # 上傳的檔案處理
+    photo_file = request.files.get('photo')
+    if photo_file:
+        photo_filename = photo_file.filename
+        photo_file.save(os.path.join(app.root_path, 'static', 'uploads', photo_filename))
+    else:
+        photo_filename = None
 
-        # 假設我們生成了個人檔案的 URL，這裡返回一個 JSON 對象
-        return jsonify({'profileUrl': '/generated_profile?name={}&email={}'.format(name, email)})
+    # 將表單資料組合成 JSON 格式
+    profile_data = {
+        'name': name,
+        'email': email,
+        'features': {
+            'feature1': feature1,
+            'feature2': feature2,
+            'feature3': feature3
+        },
+        'social_media': {
+            'facebook': facebook,
+            'instagram': instagram,
+            'personal_website': personal_website
+        },
+        'introduction': introduction,
+        'photo_filename': photo_filename  # 添加照片檔案名稱到資料中
+    }
 
-if __name__ == "__main__":
+    # 將 JSON 資料保存到檔案中
+    with open('profile.json', 'w') as f:
+        json.dump(profile_data, f)
+
+    # 返回成功訊息
+    return jsonify({'profileUrl': '/profile.json'})
+
+@app.route('/profile.json')
+def profile_json():
+    return send_from_directory('.', 'profile.json', as_attachment=True)
+
+if __name__ == '__main__':
     app.run(debug=True)

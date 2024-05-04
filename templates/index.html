@@ -90,13 +90,13 @@
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
                             <label class="form-label">Name *</label>
-                            <input type="text" class="form-control" placeholder aria-label="First name" value="">
+                            <input type="text" class="form-control" placeholder="Name" name="name"value="">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
                             <label class="form-label">Email *</label>
-                            <input type="email" class="form-control" id="inputEmail4" value="">
+                            <input type="email" class="form-control" id="inputEmail4" value="" name="email">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -104,19 +104,19 @@
                             <div class="col-md-4">
                                 <div class="bg-gray px-4 py-5 rounded">
                                     <label class="form-label">Feature 1 *</label>
-                                    <input type="text" class="form-control" placeholder="Feature 1">
+                                    <input type="text" class="form-control" placeholder="Feature 1" name="feature1">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="bg-gray px-4 py-5 rounded">
                                     <label class="form-label">Feature 2 *</label>
-                                    <input type="text" class="form-control" placeholder="Feature 2">
+                                    <input type="text" class="form-control" placeholder="Feature 2" name="feature2">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="bg-gray px-4 py-5 rounded">
                                     <label class="form-label">Feature 3 *</label>
-                                    <input type="text" class="form-control" placeholder="Feature 3">
+                                    <input type="text" class="form-control" placeholder="Feature 3" name="feature3">
                                 </div>
                             </div>
                         </div>
@@ -124,19 +124,19 @@
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
                             <label class="form-label">Facebook</label>
-                            <input type="text" class="form-control" placeholder aria-label="Facebook" value="">
+                            <input type="text" class="form-control" placeholder aria-label="Facebook" value="" name="facebook">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
                             <label class="form-label">Instagram</label>
-                            <input type="text" class="form-control" placeholder aria-label="Twitter" value="">
+                            <input type="text" class="form-control" placeholder aria-label="Twitter" value="" name="instagram" >
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
                             <label class="form-label">Personal Website</label>
-                            <input type="text" class="form-control" placeholder aria-label="Linkedin" value="">
+                            <input type="text" class="form-control" placeholder aria-label="personal_website" value="" name="personal_website">
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,6 @@
                 <div class="bg-gray px-4 py-5 rounded">
                     <h4 class="mb-4 mt-0">Upload your profile photo</h4>
                     <div class="text-center">
-                        <!-- 修改了這裡 -->
                         <div class="col-md-12 upload-section">
                             <div class="bg-gray px-4 py-5 rounded">
                                 <label class="form-label">Profile Photo Preview</label>
@@ -156,7 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="file" id="customFile" name="file" hidden>
+                        <input type="file" id="customFile" name="photo" hidden>
                         <label class="btn btn-success-soft btn-block" for="customFile" id="uploadBtn">Upload</label>
                         <button type="button" class="btn btn-danger-soft" id="removeBtn" style="display: none;">Remove</button>
                         <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
@@ -164,8 +163,8 @@
                 </div>
                 <div class="col-md-12 upload-section">
                     <div class="bg-gray px-4 py-5 rounded">
-                        <label class="form-label">Introduction *</label>
-                        <textarea class="form-control" rows="5"></textarea>
+                        <label class="form-label" >Introduction *</label>
+                        <textarea class="form-control" rows="5" name="introduction"></textarea>
                     </div>
                 </div>
                 <!-- 新增Generate!按鈕 -->
@@ -176,61 +175,56 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#customFile').change(function() {
-            var input = this;
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#uploadBtn').hide();
-                $('#removeBtn').show();
-                $('#imagePreview').attr('src', e.target.result).show();
-            }
-            reader.readAsDataURL(input.files[0]);
-        });
-        $('#removeBtn').click(function() {
-            $('#customFile').val('');
-            $('#uploadBtn').show();
-            $('#removeBtn').hide();
-            $('#imagePreview').attr('src', '').hide();
-        });
+    $('#customFile').change(function() {
+        var input = this;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#uploadBtn').hide();
+            $('#removeBtn').show();
+            $('#imagePreview').attr('src', e.target.result).show();
+        }
+        reader.readAsDataURL(input.files[0]);
+    });
+    $('#removeBtn').click(function() {
+        $('#customFile').val('');
+        $('#uploadBtn').show();
+        $('#removeBtn').hide();
+        $('#imagePreview').attr('src', '').hide();
     });
 
-    $(document).ready(function() {
-        $('#customFile').change(function() {
-            var input = this;
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#uploadBtn').hide();
-                $('#removeBtn').show();
-                $('#imagePreview').attr('src', e.target.result).show();
-            }
-            reader.readAsDataURL(input.files[0]);
-        });
-        $('#removeBtn').click(function() {
-            $('#customFile').val('');
-            $('#uploadBtn').show();
-            $('#removeBtn').hide();
-            $('#imagePreview').attr('src', '').hide();
-        });
+    // 監聽Generate!按鈕的點擊事件
+    $('#generateBtn').click(function() {
+        // 檢查 "Introduction" 是否填寫
+        var introduction = $('textarea[name="introduction"]').val();
+        if (introduction === '') {
+            alert('Please fill in the Introduction field.');
+            return;
+        }
 
-        // 監聽Generate!按鈕的點擊事件
-        $('#generateBtn').click(function() {
-            // 使用 AJAX 或其他方法將表單資料提交給後端
-            // 這裡可以使用 $.ajax() 或 $.post() 方法
-            // 請替換以下代碼為你的後端接收表單資料的路徑
-            $.post('/profile', $('form').serialize(), function(response) {
-                // 在成功提交後，你可以將用戶重定向到另一個頁面或者執行其他操作
-                // 這裡的 response 變數包含了從後端返回的任何數據
-                // 你可以根據返回的數據執行相應的操作
-                // 例如，如果後端返回了生成的個人資料頁面的URL，你可以重定向用戶到該頁面
-                window.location.href = response.profileUrl;
-            });
-        });
+        // 檢查圖片是否已上傳
+        var photoPath = $('#imagePreview').attr('src');
+        if (photoPath === '' || photoPath === undefined) {
+            alert('Please upload your profile photo.');
+            return;
+        }
 
+        // 使用 AJAX 或其他方法將表單資料提交給後端
+        // 這裡可以使用 $.ajax() 或 $.post() 方法
+        // 請替換以下代碼為你的後端接收表單資料的路徑
+        $.post('/profile', $('form').serialize(), function(response) {
+            // 在成功提交後，你可以將用戶重定向到另一個頁面或者執行其他操作
+            // 這裡的 response 變數包含了從後端返回的任何數據
+            // 你可以根據返回的數據執行相應的操作
+            // 例如，如果後端返回了生成的個人資料頁面的URL，你可以重定向用戶到該頁面
+            window.location.href = response.profileUrl;
+        });
     });
+});
+
 </script>
 </body>
 </html>
