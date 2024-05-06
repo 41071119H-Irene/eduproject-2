@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-md-12 upload-section">
                     <div class="bg-gray px-4 py-5 rounded">
-                        <label class="form-label">Introduction *</label>
+                        <label class="form-label">Introduction</label>
                         <textarea type="text" class="form-control" placeholder aria-label="personal_website" value="" name="introduction"></textarea>
                     </div>
                 </div>                
@@ -197,25 +197,7 @@ $(document).ready(function() {
         $('#imagePreview').attr('src', '').hide();
     });
 
-    // 監聽Generate!按鈕的點擊事件
     $('#generateBtn').click(function() {
-        // 檢查 "Introduction" 是否填寫
-        var introduction = $('textarea[name="introduction"]').val();
-        if (introduction === '') {
-            alert('Please fill in the Introduction field.');
-            return;
-        }
-
-        // 檢查圖片是否已上傳
-        var photoPath = $('#imagePreview').attr('src');
-        if (photoPath === '' || photoPath === undefined) {
-            alert('Please upload your profile photo.');
-            return;
-        }
-
-        // 使用 AJAX 或其他方法將表單資料提交給後端
-        // 這裡可以使用 $.ajax() 或 $.post() 方法
-        // 請替換以下代碼為你的後端接收表單資料的路徑
         $.post('/profile', $('form').serialize(), function(response) {
             // 在成功提交後，你可以將用戶重定向到另一個頁面或者執行其他操作
             // 這裡的 response 變數包含了從後端返回的任何數據
