@@ -1,1 +1,20 @@
-{"name": "Irene", "email": "email", "features": {"feature1": "a", "feature2": "b", "feature3": "c"}, "social_media": {"facebook": "fb", "instagram": "ig", "personal_website": "website"}, "introduction": null, "photo_filename": null}
+{
+    "data": {
+      "name": "",
+      "email": "",
+      "features": {
+        "feature1": "",
+        "feature2": "",
+        "feature3": ""
+      },
+      "social_media": {
+        "facebook": "",
+        "instagram": "",
+        "personal_website": ""
+      },
+      "introduction": "",
+      "photo_filename": "",
+      "learning_topic_title": ""
+    }
+  }
+  

@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import json
 import os
@@ -32,20 +31,23 @@ def generate_profile():
 
     # 將表單資料組合成 JSON 格式
     profile_data = {
-        'name': name,
-        'email': email,
-        'features': {
-            'feature1': feature1,
-            'feature2': feature2,
-            'feature3': feature3
-        },
-        'social_media': {
-            'facebook': facebook,
-            'instagram': instagram,
-            'personal_website': personal_website
-        },
-        'introduction': introduction,
-        'photo_filename': photo_filename  # 添加照片檔案名稱到資料中
+        'data': {
+            'name': name,
+            'email': email,
+            'features': {
+                'feature1': feature1,
+                'feature2': feature2,
+                'feature3': feature3
+            },
+            'social_media': {
+                'facebook': facebook,
+                'instagram': instagram,
+                'personal_website': personal_website
+            },
+            'introduction': introduction,
+            'photo_filename': photo_filename,  # 添加照片檔案名稱到資料中
+            'learning_topic_title': ''  # 如果需要，可以填入學習主題標題
+        }
     }
 
     # 將 JSON 資料保存到檔案中
