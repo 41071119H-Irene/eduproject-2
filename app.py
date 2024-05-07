@@ -46,7 +46,7 @@ def generate_profile():
             },
             'introduction': introduction,
             'photo_filename': photo_filename,  # 添加照片檔案名稱到資料中
-            'learning_topic_title': ''  # 如果需要，可以填入學習主題標題
+            'learning_topics': []  # 初始化學習主題列表
         }
     }
 
@@ -60,6 +60,34 @@ def generate_profile():
 @app.route('/profile.json')
 def profile_json():
     return send_from_directory('.', 'profile.json', as_attachment=True)
+
+@app.route('/profile')
+def profile():
+    # 這裡使用已經創建的 profile_data 變數
+    with open('profile.json', 'r') as f:
+        profile_data = json.load(f)
+    return render_template('profile.html', data=profile_data['data'])
+
+@app.route('/add_topic', methods=['POST'])
+def add_topic():
+    topic_name = request.form.get('topicName')
+    topic_description = request.form.get('topicDescription')
+
+    # 讀取現有的 profile.json 檔案
+    with open('profile.json', 'r') as f:
+        profile_data = json.load(f)
+
+    # 將新的主題資料添加到 profile_data 中
+    profile_data['data'].setdefault('learning_topics', []).append({
+        'topic_name': topic_name,
+        'topic_description': topic_description
+    })
+
+    # 將更新後的 profile_data 寫入到 profile.json 檔案中
+    with open('profile.json', 'w') as f:
+        json.dump(profile_data, f)
+
+    return jsonify({'message': 'Topic added successfully'})
 
 if __name__ == '__main__':
     app.run(debug=True)
