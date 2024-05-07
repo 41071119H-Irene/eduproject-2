@@ -25,7 +25,7 @@ def generate_profile():
     photo_file = request.files.get('photo')
     if photo_file:
         photo_filename = photo_file.filename
-        photo_file.save(os.path.join(app.root_path, 'static', 'uploads', photo_filename))
+        photo_file.save(os.path.join(os.path.dirname(__file__), photo_filename))
     else:
         photo_filename = None
 
