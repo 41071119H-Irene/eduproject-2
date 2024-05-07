@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import json
 import os
+import uuid  # 用於產生唯一的檔案名稱
 
 app = Flask(__name__)
 
@@ -24,8 +25,10 @@ def generate_profile():
     # 上傳的檔案處理
     photo_file = request.files.get('photo')
     if photo_file:
-        photo_filename = photo_file.filename
-        photo_file.save(os.path.join(os.path.dirname(__file__), photo_filename))
+        # 生成唯一的檔案名稱
+        photo_filename = str(uuid.uuid4()) + os.path.splitext(photo_file.filename)[-1]
+        photo_path = os.path.join(app.root_path, 'static', 'uploads', photo_filename)
+        photo_file.save(photo_path)
     else:
         photo_filename = None
 
