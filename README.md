@@ -24,8 +24,11 @@
 ### 0502 
 - 用 Flask 串聯做成Genrator
 - 遇到問題: 有的資料無法讀取到(解決!)
+- 轉換成功的樣子
+![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/c48fb3fe-c368-4eca-ba4f-85450d261801)
+
 ### 0509
-- 用Flask做出相關功能
+- 繼續做出相關功能
 - 增加主題
 - 增加筆記
 
