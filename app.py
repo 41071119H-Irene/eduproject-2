@@ -23,11 +23,21 @@ def generate_profile():
     introduction = request.form.get('introduction')
 
     # 上傳的檔案處理
+    UPLOAD_FOLDER = 'static/uploads'  # 指定上傳檔案的資料夾
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    # 確保資料夾存在
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
+
     photo_file = request.files.get('photo')
+    print(photo_file)
+    print(request.form)
+    
     if photo_file:
         # 生成唯一的檔案名稱
-        photo_filename = str(uuid.uuid4()) + os.path.splitext(photo_file.filename)[-1]
-        photo_path = os.path.join(app.root_path, 'static', 'uploads', photo_filename)
+        photo_filename = photo_file.filename
+        photo_path = os.path.join(app.config['UPLOAD_FOLDER'], photo_filename)
         photo_file.save(photo_path)
     else:
         photo_filename = None

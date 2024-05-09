@@ -86,7 +86,7 @@
                 <h3>Profile Generator</h3>
                 <hr>
             </div>
-            <form class="file-upload">
+            <form class="file-upload" method="post" action="/profile" enctype="multipart/form-data">
                 <div class="row gx-5">
                     <div class="col-md-12">
                         <div class="bg-gray px-4 py-5 rounded">
@@ -141,38 +141,36 @@
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="col-xxl-6">
-            <div class="upload-section">
-                <div class="bg-gray px-4 py-5 rounded">
-                    <h4 class="mb-4 mt-0">Upload your profile photo</h4>
-                    <div class="text-center">
-                        <div class="col-md-12 upload-section">
-                            <div class="bg-gray px-4 py-5 rounded">
-                                <label class="form-label">Profile Photo Preview</label>
-                                <div class="square text-center">
-                                    <img src="" id="imagePreview" class="img-fluid" alt="Profile Photo Preview" style="display: none;">
+                <div class="upload-section">
+                    <div class="bg-gray px-4 py-5 rounded">
+                        <h4 class="mb-4 mt-0">Upload your profile photo</h4>
+                        <div class="text-center">
+                            <div class="col-md-12 upload-section">
+                                <div class="bg-gray px-4 py-5 rounded">
+                                    <label class="form-label">Profile Photo Preview</label>
+                                    <div class="square text-center">
+                                        <img src="" id="imagePreview" class="img-fluid" alt="Profile Photo Preview" style="display: none;">
+                                    </div>
                                 </div>
                             </div>
+                            <input type="file" id="customFile" name="photo" required>
+                            <label class="btn btn-success-soft btn-block" for="customFile" id="uploadBtn">Upload</label>
+                            <button type="button" class="btn btn-danger-soft" id="removeBtn" style="display: none;">Remove</button>
+                            <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
                         </div>
-                        <input type="file" id="customFile" name="photo" hidden>
-                        <label class="btn btn-success-soft btn-block" for="customFile" id="uploadBtn">Upload</label>
-                        <button type="button" class="btn btn-danger-soft" id="removeBtn" style="display: none;">Remove</button>
-                        <p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
+                    </div>
+                    <div class="col-md-12 upload-section">
+                        <div class="bg-gray px-4 py-5 rounded">
+                            <label class="form-label">Introduction</label>
+                            <textarea type="text" class="form-control" placeholder aria-label="personal_website" value="" name="introduction"></textarea>
+                        </div>
+                    </div>                
+                    <!-- 新增Generate!按鈕 -->
+                    <div class="col-md-12 upload-section">
+                        <button type="button" class="btn btn-primary btn-block" id="generateBtn">Generate!</button>
                     </div>
                 </div>
-                <div class="col-md-12 upload-section">
-                    <div class="bg-gray px-4 py-5 rounded">
-                        <label class="form-label">Introduction</label>
-                        <textarea type="text" class="form-control" placeholder aria-label="personal_website" value="" name="introduction"></textarea>
-                    </div>
-                </div>                
-                <!-- 新增Generate!按鈕 -->
-                <div class="col-md-12 upload-section">
-                    <button type="button" class="btn btn-primary btn-block" id="generateBtn">Generate!</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -197,13 +195,22 @@ $(document).ready(function() {
         $('#imagePreview').attr('src', '').hide();
     });
 
-    $('#generateBtn').click(function() {
-        $.post('/profile', $('form').serialize(), function(response) {
-            // 在成功提交後，你可以將用戶重定向到另一個頁面或者執行其他操作
-            // 這裡的 response 變數包含了從後端返回的任何數據
-            // 你可以根據返回的數據執行相應的操作
-            // 例如，如果後端返回了生成的個人資料頁面的URL，你可以重定向用戶到該頁面
-            window.location.href = response.profileUrl;
+    $('#generateBtn').click(function(event) {
+        event.preventDefault();
+        var formData = new FormData($('form')[0]);
+
+            $.ajax({
+            url: '/profile',
+            type: 'POST',
+            data: formData,
+            processData: false, // 告诉 jQuery 不要处理发送的数据
+            contentType: false, // 告诉 jQuery 不要设置内容类型
+            success: function(response) {
+                window.location.href = response.profileUrl; // 例如，如果后端返回了生成的个人资料页面的URL，你可以重定向用户到该页面
+            },
+            error: function(response) {
+                alert('Error: ' + response.statusText);
+            }
         });
     });
 });
