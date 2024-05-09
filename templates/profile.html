@@ -19,7 +19,11 @@
                     <div class="row align-items-center">
                         <div class="col-md-3">
                             <div class="text-center border-end">
-                                <img src="{{ data.photo_filename }}" class="img-fluid avatar-xxl rounded-circle" alt="Profile Picture">
+                                {% if data.photo_filename %}
+                                    <img src="{{ url_for('static', filename='uploads/' + data.photo_filename) }}" class="img-fluid avatar-xxl rounded-circle" alt="Profile Picture">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='placeholder.jpg') }}" class="img-fluid avatar-xxl rounded-circle" alt="Profile Picture">
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-md-9">
