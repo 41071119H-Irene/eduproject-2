@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import request
 import json
 import os
 import uuid  # 用於產生唯一的檔案名稱
@@ -108,8 +109,58 @@ def add_topic():
     with open('learning.json', 'w') as file:
         json.dump(data, file, indent=4)
     
+    # Check if Markdown content is sent from the client
+    markdown_content = request.form.get('markdownContent')
+    if markdown_content:
+        # Find the index of the newly added topic
+        new_topic_index = len(data['learning_records']) - 1
+        # Add Markdown content to the corresponding topic
+        data['learning_records'][new_topic_index]['markdownContent'] = markdown_content
+        
+        # Update the learning.json file with the new data
+        with open('learning.json', 'w') as file:
+            json.dump(data, file, indent=4)
+    
     # Respond with a success message
     return jsonify({'message': 'Topic added successfully'})
+
+@app.route('/learning/<topic_name>')
+def learning(topic_name):
+    # Load learning topics data
+    with open('learning.json', 'r') as f:
+        learning_data = json.load(f)
+    
+    # Find the topic by its name
+    topic = None
+    for t in learning_data['learning_records']:
+        if t['topicName'] == topic_name:
+            topic = t
+            break
+    
+    # Render the learning template with the topic data
+    return render_template('learning.html', topic=topic)
+
+@app.route('/save_markdown', methods=['POST'])
+def save_markdown():
+    # 获取来自前端的 JSON 数据，包含 Markdown 内容和主题名称
+    request_data = request.json
+    
+    # 加载原始数据
+    with open('learning.json', 'r') as file:
+        data = json.load(file)
+    
+    # 根据主题名称找到相应的主题对象，并将 Markdown 内容添加到其中
+    for record in data['learning_records']:
+        if record.get('topicName') == request_data.get('topicName'):
+            record['markdownContent'] = request_data.get('markdownContent', '')
+            break
+    
+    # 将更新后的数据写回到 JSON 文件中
+    with open('learning.json', 'w') as file:
+        json.dump(data, file, indent=4)
+    
+    # 响应成功消息
+    return jsonify({'message': 'Markdown content saved successfully'})
 
 
 if __name__ == '__main__':
