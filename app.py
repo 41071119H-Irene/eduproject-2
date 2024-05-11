@@ -162,6 +162,22 @@ def save_markdown():
     # 响应成功消息
     return jsonify({'message': 'Markdown content saved successfully'})
 
+@app.route('/get_markdown/<topic_name>')
+def get_markdown(topic_name):
+    # 加载 learning.json 文件中的内容
+    with open('learning.json', 'r') as file:
+        data = json.load(file)
+    
+    # 根据主题名称找到相应的主题对象，并返回 Markdown 内容
+    for record in data['learning_records']:
+        if record.get('topicName') == topic_name:
+            markdown_content = record.get('markdownContent', '')
+            break
+    
+    # 返回获取到的 Markdown 内容
+    return jsonify({'markdownContent': markdown_content})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
