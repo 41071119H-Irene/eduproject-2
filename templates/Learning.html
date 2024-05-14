@@ -196,13 +196,13 @@
                     <div class="widget-body">
                         <div class="media align-items-center">
                             <div class="avatar">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="avatar">
+                                <img src="/static/uploads/{{ profile.photo_filename }}" alt="avatar">
                             </div>
                             <div class="media-body">
-                                <h6>Hello, I'm<br> Rachel Roth</h6>
+                                <h6>{{ profile.name }}</h6>
                             </div>
                         </div>
-                        <p>I design and develop services for customers of all sizes, specializing in creating stylish, modern websites, web services, and online stores.</p>
+                        <p>{{ profile.introduction }}</p>
                     </div>
                 </div>
                 <div class="widget widget-latest-post">
@@ -210,18 +210,16 @@
                         <h3>Other Learning Topics</h3>
                     </div>
                     <div class="widget-body">
+                        {% for record in learning_topics %}
                         <div class="latest-post-aside media">
                             <div class="lpa-left media-body">
                                 <div class="lpa-title">
-                                    <h5><a href="#">Prevent 75% of Visitors from Google Analytics</a></h5>
+                                    <h5><a href="/learning/{{ record.topicName }}">{{ record.topicName }}</a></h5>
                                 </div>
-                                <div class="lpa-meta">
-                                    <a class="name" href="#">Rachel Roth</a>
-                                    <a class="date" href="#">26 FEB 2020</a>
-                                </div>
+                                <!-- 可以根据需要添加其他内容，比如作者、日期等 -->
                             </div>
                         </div>
-                        <!-- Repeat for other topics -->
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -239,22 +237,25 @@
     $('#save-markdown-btn').click(function() {
         var markdownContent = simplemde.value(); // 获取 Markdown 内容
         var topicName = $('#topicName').val(); // 获取主题名称
-
-        // 发送数据到后端
-        $.ajax({
-            url: '/save_markdown',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ markdownContent: markdownContent, topicName: topicName }),
-            success: function(response) {
-                console.log('Markdown content saved successfully');
-                // 处理成功响应
-            },
-            error: function(xhr, status, error) {
-                console.error('Error saving Markdown content:', error);
-                // 处理错误响应
-            }
-        });
+        
+        // 弹出确认窗口
+        if (confirm("保存學習記錄囉!")) {
+            // 发送数据到后端
+            $.ajax({
+                url: '/save_markdown',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ markdownContent: markdownContent, topicName: topicName }),
+                success: function(response) {
+                    console.log('Markdown content saved successfully');
+                    // 处理成功响应
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error saving Markdown content:', error);
+                    // 处理错误响应
+                }
+            });
+        }
     });
     
     $(document).ready(function() {

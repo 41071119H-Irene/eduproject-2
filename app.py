@@ -126,6 +126,10 @@ def add_topic():
 
 @app.route('/learning/<topic_name>')
 def learning(topic_name):
+    # Load profile data
+    with open('profile.json', 'r') as f:
+        profile_data = json.load(f)
+    
     # Load learning topics data
     with open('learning.json', 'r') as f:
         learning_data = json.load(f)
@@ -137,8 +141,9 @@ def learning(topic_name):
             topic = t
             break
     
-    # Render the learning template with the topic data
-    return render_template('learning.html', topic=topic)
+    # Render the learning template with the profile and topic data
+    return render_template('learning.html', learning_topics=learning_data['learning_records'], profile=profile_data['data'], topic=topic)
+
 
 @app.route('/save_markdown', methods=['POST'])
 def save_markdown():
