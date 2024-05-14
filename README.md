@@ -28,12 +28,13 @@
 ![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/c48fb3fe-c368-4eca-ba4f-85450d261801)
 
 ### 0509
-- 繼續做出相關功能
+- **繼續做出相關功能**
 - 增加主題
-- 增加筆記
+- Markdown存入josn檔
+- 回到profile按鍵
 
 ### 0516 
-- Debugging Day
+- Debugging & Cleaning Day
 ### 0523
 - Debugging Day
 - 開始準備 Demo Day 的分享內容
