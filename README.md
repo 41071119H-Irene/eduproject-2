@@ -35,8 +35,15 @@
 
 ### 0516 
 - Debugging & Cleaning Day
+- Project Done!
+- 精華圖片
+- Profile
+![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/f486ee15-1215-4581-a103-f190575f5584)
+- Markdown 筆記頁面
+![image](https://github.com/41071119H-Irene/eduproject-2/assets/112916890/947ee138-328e-4e3b-810e-731a6f599c67)
+
+
 ### 0523
-- Debugging Day
 - 開始準備 Demo Day 的分享內容
 ### 0530
 ### 0605 (Demo Day)
