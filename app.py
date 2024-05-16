@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
+
 from flask import request
 import json
 import os
@@ -69,7 +70,7 @@ def generate_profile():
         json.dump(profile_data, f)
 
     # 返回成功訊息
-    return jsonify({'profileUrl': '/profile.json'})
+    return jsonify({'profileUrl': '/profile'})
     
 
 @app.route('/profile.json')
@@ -123,6 +124,7 @@ def add_topic():
     
     # Respond with a success message
     return jsonify({'message': 'Topic added successfully'})
+
 
 @app.route('/learning/<topic_name>')
 def learning(topic_name):
